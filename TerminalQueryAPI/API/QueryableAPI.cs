@@ -33,7 +33,7 @@ public class QueryableAPI
     /// <param name="terminalKey">The Terminal Item to modify's key</param>
     /// <param name="queryDel">The delegate used to get the lines to print to the terminal</param>
     /// <returns>Returns false if the key isn't already registered, and registering fails</returns>
-    public static bool ModifyQueryableItem(string terminalKey, QueryDelegate? queryDel)
+    public static bool ModifyQueryableItem(string terminalKey, QueryDelegate? queryDel = null)
     {
         if (Manager.QueryOverrides.ContainsKey(terminalKey))
         {
@@ -55,14 +55,14 @@ public class QueryableAPI
     /// <param name="terminalItem">The Terminal Item to modify</param>
     /// <param name="queryDel">The delegate used to get the lines to print to the terminal</param>
     /// <returns>Returns false if the key isn't already registered, and registering fails</returns>
-    public static bool ModifyQueryableItem(iTerminalItem terminalItem, QueryDelegate? queryDel) => ModifyQueryableItem(terminalItem.TerminalItemKey, queryDel);
+    public static bool ModifyQueryableItem(iTerminalItem terminalItem, QueryDelegate? queryDel = null) => ModifyQueryableItem(terminalItem.TerminalItemKey, queryDel);
     /// <summary>
     /// Modifys the Query delegate registered for the provided Terminal Item. If the provided item is not currently registered for query, it will be registered.
     /// </summary>
     /// <param name="terminalItem">The Terminal Item to modify</param>
     /// <param name="queryDel">The delegate used to get the lines to print to the terminal</param>
     /// <returns>Returns false if the key isn't already registered, and registering fails</returns>
-    public static bool ModifyQueryableItem(LG_GenericTerminalItem terminalItem, QueryDelegate? queryDel) => ModifyQueryableItem(terminalItem.TerminalItemKey, queryDel);
+    public static bool ModifyQueryableItem(LG_GenericTerminalItem terminalItem, QueryDelegate? queryDel = null) => ModifyQueryableItem(terminalItem.TerminalItemKey, queryDel);
 
     /// <summary>
     /// Registers the provided Terminal Item Key to Query properly, using the provided QueryDelegate
@@ -70,7 +70,7 @@ public class QueryableAPI
     /// <param name="terminalKey">The Terminal Item Key to register for querying</param>
     /// <param name="queryDel">The delegate to use to get the Query text</param>
     /// <returns>Returns true if the key is successfully registered, false otherwise</returns>
-    public static bool RegisterQueryableItem(string terminalKey, QueryDelegate? queryDel)
+    public static bool RegisterQueryableItem(string terminalKey, QueryDelegate? queryDel = null)
     {
         if (string.IsNullOrEmpty(terminalKey))
         {
@@ -99,12 +99,12 @@ public class QueryableAPI
     /// <param name="terminalItem">the Terminal Item to register for querying</param>
     /// <param name="queryDel">The delegate to use to get the Query text</param>
     /// <returns>Returns true if the item is successfully registered, false otherwise</returns>
-    public static bool RegisterQueryableItem(iTerminalItem terminalItem, QueryDelegate? queryDel) => RegisterQueryableItem(terminalItem.TerminalItemKey, queryDel);
+    public static bool RegisterQueryableItem(iTerminalItem terminalItem, QueryDelegate? queryDel = null) => RegisterQueryableItem(terminalItem.TerminalItemKey, queryDel);
     /// <summary>
     /// Registers the provided Terminal Item to Query properly, using the provided QueryDelegate
     /// </summary>
     /// <param name="terminalItem">the Terminal Item to register for querying</param>
     /// <param name="queryDel">The delegate to use to get the Query text</param>
     /// <returns>Returns true if the item is successfully registered, false otherwise</returns>
-    public static bool RegisterQueryableItem(LG_GenericTerminalItem terminalItem, QueryDelegate? queryDel) => RegisterQueryableItem(terminalItem.TerminalItemKey, queryDel);
+    public static bool RegisterQueryableItem(LG_GenericTerminalItem terminalItem, QueryDelegate? queryDel = null) => RegisterQueryableItem(terminalItem.TerminalItemKey, queryDel);
 }
