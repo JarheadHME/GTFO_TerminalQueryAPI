@@ -7,6 +7,7 @@ namespace TerminalQueryAPI.Modules;
 internal static class TerminalItemManager
 {
     internal static Dictionary<string, QueryDelegate> QueryOverrides = new Dictionary<string, QueryDelegate>();
+    internal static Dictionary<string, QueryDelegate> TemporaryQueryOverrides = new Dictionary<string, QueryDelegate>();
 
     // basically ripped from TerminalConsumables.TerminalItemManager by Dinorush
     internal static bool TryDoQueryOutput(iTerminalItem terminalItem, LG_ComputerTerminalCommandInterpreter interpreter)
@@ -14,7 +15,8 @@ internal static class TerminalItemManager
         string itemKey = terminalItem.TerminalItemKey;
 
         // Not a registered query override
-        if (!QueryOverrides.TryGetValue(itemKey, out QueryDelegate? queryDelegate))
+        QueryDelegate? queryDelegate;
+        if (!TemporaryQueryOverrides.TryGetValue(itemKey, out queryDelegate) && !QueryOverrides.TryGetValue(itemKey, out queryDelegate))
             return false;
 
         string pingStatus = interpreter.GetPingStatus(terminalItem);
@@ -26,7 +28,7 @@ internal static class TerminalItemManager
 
         if (queryDelegate != null)
             output = queryDelegate.Invoke(defaultDetails);
-        else 
+        else
             output = defaultDetails;
 
         interpreter.AddOutput(TerminalLineType.SpinningWaitDone, "Querying " + itemKey, 3f);
@@ -46,5 +48,9 @@ internal static class TerminalItemManager
         return outlist;
     }
 
-    public static void Clear() => QueryOverrides.Clear();
+    public static void Clear()
+    {
+        QueryOverrides.Clear();
+        TemporaryQueryOverrides.Clear();
+    }
 }
